@@ -149,24 +149,3 @@ TTS audio from Sarvam comes back as base64-encoded WAV and is decoded and played
 | Gujarati  | `gu-IN` |
 | Punjabi   | `pa-IN` |
 | English   | `en-IN` |
-
----
-
-## Known Limitations
-
-- **Autoplay** may be blocked on some browsers (Chrome requires a user gesture first — clicking the mic counts)
-- **Streamlit reruns** the full script on each interaction — history is stored in `st.session_state` and persists within a session but resets on page refresh
-- **Long audio** (>30s) may hit Sarvam STT timeout — keep recordings under 20s for best results
-- **Twilio integration** (`sarvam_twilio.py`) is functional but requires ngrok or a deployed server with a public URL
-
----
-
-## Extending This
-
-| What               | How                                                                                   |
-| ------------------ | ------------------------------------------------------------------------------------- |
-| Swap LLM to Claude | Replace `Groq` client with `anthropic` client in `llm_respond()`                      |
-| Add RAG            | Chunk your docs → embed → retrieve top-k → inject into system prompt                  |
-| Add tool calling   | Define tools in Groq API call, handle `tool_use` blocks before TTS                    |
-| Deploy             | `streamlit run` works on any server; add `--server.port` and reverse proxy with nginx |
-| Phone number       | See `sarvam_twilio.py` — point Twilio webhook at a deployed instance                  |
